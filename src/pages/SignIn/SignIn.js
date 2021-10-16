@@ -10,9 +10,13 @@ import {AuthContext} from '../../contexts/authContext';
 const SignIn = () => {
   const [emailPhoneNumber, setEmailPhoneNumber] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [loginLoading, setLoginLoading] = React.useState(false);
   const {setUser} = React.useContext(AuthContext);
+
   const handleSignIn = async () => {
+    setLoginLoading(true);
     const response = await requestSignIn();
+    setLoginLoading(false);
     setUser(response.user);
   };
 
@@ -38,7 +42,7 @@ const SignIn = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button title="Login" onPress={handleSignIn} />
+        <Button title="Login" onPress={handleSignIn} loading={loginLoading} />
         <Text style={styles.subTitle}>Or continue with</Text>
         <Button title="Google" buttonStyle={styles.googleButton} />
         <View style={styles.signUpView}>
