@@ -1,11 +1,13 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+// import AppRoute from './routes/app.routes';
+import AuthRoute from './routes/auth.routes';
 
 const App = () => {
   return (
-    <View>
-      <Text>Sou o App!</Text>
-    </View>
+    <NavigationContainer>
+      <AuthRoute />
+    </NavigationContainer>
   );
 };
 
