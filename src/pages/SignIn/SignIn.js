@@ -4,10 +4,18 @@ import InputText from '../../components/InputText/InputText';
 import Button from '../../components/Button/Button';
 import styles from './styles';
 import {primaryColor} from '../../helpers/colors';
+import requestSignIn from '../../services/auth';
+import {AuthContext} from '../../contexts/authContext';
 
 const SignIn = () => {
   const [emailPhoneNumber, setEmailPhoneNumber] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const {setUser} = React.useContext(AuthContext);
+  const handleSignIn = async () => {
+    const response = await requestSignIn();
+    setUser(response.user);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -30,7 +38,7 @@ const SignIn = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button title="Login" />
+        <Button title="Login" onPress={handleSignIn} />
         <Text style={styles.subTitle}>Or continue with</Text>
         <Button title="Google" buttonStyle={styles.googleButton} />
         <View style={styles.signUpView}>
