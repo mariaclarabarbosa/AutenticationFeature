@@ -5,19 +5,23 @@ import Button from '../../components/Button/Button';
 import styles from './styles';
 import {primaryColor} from '../../helpers/colors';
 import requestSignIn from '../../services/auth';
-import {AuthContext} from '../../contexts/authContext';
+// import {AuthContext} from '../../contexts/authContext';
+import {useDispatch} from 'react-redux';
+import {login} from '../../store/features/authSlice';
 
 const SignIn = () => {
   const [emailPhoneNumber, setEmailPhoneNumber] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [loginLoading, setLoginLoading] = React.useState(false);
-  const {setUser} = React.useContext(AuthContext);
+  // const {setUser} = React.useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const handleSignIn = async () => {
     setLoginLoading(true);
     const response = await requestSignIn();
     setLoginLoading(false);
-    setUser(response.user);
+    // setUser(response.user);
+    dispatch(login(response.user));
   };
 
   return (
